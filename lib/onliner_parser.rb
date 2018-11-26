@@ -1,23 +1,19 @@
 require 'nokogiri'
-require 'capybara'
 require 'parser_wireframe'
-require 'onliner_xpaths'
 
 class OnlinerMainNewsParser < ParserWireframe
-  include OnlinerXPaths
+
+  ARTICLE_TITLE_XPATH = '//title/text()'.freeze
+  ARTICLE_CONTENTS_XPATH = '//div[contains(@class, "news-text")]//p/text()'.freeze
 
   def initialize(url, driver)
     super(url, driver)
     @saved = Nokogiri::HTML(@driver.body)
   end
 
-  def parse
-    main = parse_info(OnlinerXPaths::MAIN_NEWS_IMAGE, OnlinerXPaths::MAIN_NEWS_LINK)
-    secondary = parse_info(OnlinerXPaths::SECONDARY_IMAGE, OnlinerXPaths::SECONDARY_LINK)
-    list_news = parse_info(OnlinerXPaths::LIST_IMAGE, OnlinerXPaths::LIST_LINK)
-    opinions = parse_info(OnlinerXPaths::OPINIONS_IMAGE, OnlinerXPaths::OPINIONS_LINK)
-    teasers = parse_info(OnlinerXPaths::TEASER_IMAGE, OnlinerXPaths::TEASER_LINK)
-    main + secondary + list_news + opinions + teasers
+  def parse(paths)
+    @image_xpath, @link_xpath = *paths
+    parse_info(@image_xpath, @link_xpath)
   end
 
   private
@@ -37,8 +33,8 @@ class OnlinerMainNewsParser < ParserWireframe
   def extract(url)
     @driver.visit url
     article = Nokogiri::HTML(@driver.body)
-    title = article.xpath('//title/text()').text.strip
-    contents = article.xpath('//div[contains(@class, "news-text")]//p/text()').text[0...200]
+    title = article.xpath(ARTICLE_TITLE_XPATH).text.strip
+    contents = article.xpath(ARTICLE_CONTENTS_XPATH).text[0...200]
     [title, contents]
   end
 
@@ -54,7 +50,8 @@ class OnlinerMainNewsParser < ParserWireframe
   end
 
   def clean(combined)
-    combined = combined.reject { |element| element[1].empty? || element[2].empty? }
+    combined = combined.reject \
+      { |element| element[1].empty? || element[2].empty? }
     combined
   end
 end
