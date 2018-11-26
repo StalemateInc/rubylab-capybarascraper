@@ -15,3 +15,7 @@ Task:
 3) `OnlinerMainNewsParser` parses not only *main* news, but also news from teasers, articles from "opinions" block, secondary and listed in a columns news from the main page. This is by design and be turned off.
 4) Mechanized connects to other pages to get better title and first 200 characters from the article, because sometimes no text provided for the news itself on the main page.
 5) App is still opening the page with Capybara to prove it is working.
+---
+## Usage:  
+1) bundle install
+2) ruby app.rb
