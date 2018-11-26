@@ -22,5 +22,5 @@ module OnlinerXPaths
   OPINIONS_BASE = '//ul[contains(@class, "b-opinions-main-2")]/li'.freeze
   OPINIONS_IMAGE = (OPINIONS_BASE + '/div/@data-style').freeze
   OPINIONS_LINK = (OPINIONS_BASE + '/div/a[position() = 1]/@href').freeze
-  OPINIONS_PATHS = [OPINIONS_IMAGE, OPINIONS_LINK]
+  OPINIONS_PATHS = [OPINIONS_IMAGE, OPINIONS_LINK].freeze
 end
