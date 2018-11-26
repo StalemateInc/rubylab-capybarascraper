@@ -1,10 +1,9 @@
 class ParserWireframe
   attr_reader :driver
-  attr_accessor :url, :document
+  attr_accessor :url
 
-  def initialize(url, driver)
+  def initialize(url)
     @url = url
-    @driver = driver
   end
 
   def parse; end

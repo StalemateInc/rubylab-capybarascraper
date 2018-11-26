@@ -22,7 +22,7 @@ browser = Capybara.current_session
 driver = browser.driver.browser
 browser.visit PAGE_URL
 
-onliner_parser = OnlinerMainNewsParser.new(PAGE_URL, browser)
+onliner_parser = OnlinerMainNewsParser.new(PAGE_URL)
 main_news = onliner_parser.parse(OnlinerXPaths::MAIN_NEWS_PATHS)
 secondary_news = onliner_parser.parse(OnlinerXPaths::SECONDARY_PATHS)
 list_news = onliner_parser.parse(OnlinerXPaths::LIST_PATHS)
