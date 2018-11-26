@@ -10,11 +10,11 @@ Task:
 
 ---
 ## Notes:
-1) I've tried to scrape with Capybara itself, but in 90% of cases every valid css or xpath selector was timed-out and then the exception was raised. I don't why it kept happening, so I switched to Nokogiri, and later, to Mechanize to speed up the process.
-2) Nokogiri part from earlier commits dropped and replaced with more efficient and fast Mechanize code
+1) I've tried to scrape with Capybara itself, but in 90% of cases every valid css or xpath selector was timed out and then the exception was raised. I had no idea why it was happening, so I switched to Nokogiri, and later, to Mechanize to speed up the process.
+2) Nokogiri part from earlier commits was dropped and replaced with Mechanize gem
 3) `OnlinerMainNewsParser` parses not only *main* news, but also news from teasers, articles from "opinions" block, secondary and listed in a columns news from the main page. This is by design and be turned off.
 4) Mechanized connects to other pages to get better title and first 200 characters from the article, because sometimes no text provided for the news itself on the main page.
-5) App is still opening the page with Capybara to prove it is working.
+5) App still opens the page with Capybara to prove it is working.
 ---
 ## Usage:  
 1) bundle install
